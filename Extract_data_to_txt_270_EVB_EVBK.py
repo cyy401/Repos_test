@@ -103,6 +103,8 @@ if __name__ == "__main__":
         line = f.readline()
     f.close()
 
+    # master add comment message 1
+    # master add comment message 2
 
     outputExcel = "result.xls"
     fileName = "201911100011_超频升压_log.txt"
