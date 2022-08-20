@@ -109,13 +109,6 @@ if __name__ == "__main__":
 
                    'Run 50 loops fastercnn 1-batch in SDK', 'Run 50 loops fastercnn 4-batch in SDK', 'Run 50 loops fastercnn 16-batch in SDK',
                    'Run 50 loops fastercnn 1080P 1-batch in SDK', 'Run 50 loops fastercnn 1080P 4-batch in SDK',
-
-                   'Run 50 loops yolov3 1-bacth in SDK', 'Run 50 loops yolov3 4-bacth in SDK', 'Run 50 loops yolov3 16-bacth in SDK',
-                   'Run 50 loops yolov3 1080P 1-bacth in SDK','Run 50 loops yolov3 1080P 4-bacth in SDK','Run 50 loops yolov3 1080P 16-bacth in SDK',
-
-                   'Run 100 loops yolov2 1-batch in SDK', 'Run 100 loops yolov2 4-batch in SDK', 'Run 100 loops yolov2 16-batch in SDK',
-                   'Run 100 loops yolov2 1080P 1-batch in SDK','Run 100 loops yolov2 1080P 4-batch in SDK',
-
                    'Run 50 loops mtcnn in SDK']
 
     while line:
