@@ -102,3 +102,8 @@ if __name__ == "__main__":
                     power_core,power_vddq,power_vddr=0,0,0
         line = f.readline()
     f.close()
+
+
+
+# check version 1st 
+# check version 2nd
