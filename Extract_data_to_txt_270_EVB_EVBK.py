@@ -102,3 +102,72 @@ if __name__ == "__main__":
                     power_core,power_vddq,power_vddr=0,0,0
         line = f.readline()
     f.close()
+
+
+    outputExcel = "result.xls"
+    fileName = "201911100011_超频升压_log.txt"
+    f = open(fileName,encoding= 'utf-8')
+    line = f.readline()
+    check = False
+    keyword_index = 0
+    filter_list= ['Run Resnet50 single batch in 270 package','Run Resnet50 dual batch in 270 package',
+                   
+                   'Run 300 loops Resnet50 1-batch in SDK', 'Run 300 loops Resnet50 4-batch in SDK', 'Run 300 loops Resnet50 16-batch in SDK',
+                   'Run 300 loops Resnet50 1080P 1-batch in SDK','Run 300 loops Resnet50 1080P 4-batch in SDK','Run 300 loops Resnet50 1080P 16-batch in SDK',
+                   
+                   'Run 300 loops mobilenet 1-batch in SDK', 'Run 300 loops mobilenet 4-batch in SDK', 'Run 300 loops mobilenet 16-batch in SDK',
+                   'Run 300 loops mobilenet 1080P 1-batch in SDK','Run 300 loops mobilenet 1080P 4-batch in SDK','Run 300 loops mobilenet 1080P 16-batch in SDK',
+
+                   'Run 100 loops ssd 1-batch in SDK', 'Run 100 loops ssd 4-batch in SDK', 'Run 100 loops ssd 16-batch in SDK',
+                   'Run 100 loops ssd 1080P 1-batch in SDK', 'Run 100 loops ssd 1080P 4-batch in SDK', 'Run 100 loops ssd 1080P 16-batch in SDK',
+
+                   'Run 50 loops fastercnn 1-batch in SDK', 'Run 50 loops fastercnn 4-batch in SDK', 'Run 50 loops fastercnn 16-batch in SDK',
+                   'Run 50 loops fastercnn 1080P 1-batch in SDK', 'Run 50 loops fastercnn 1080P 4-batch in SDK',
+
+                   'Run 50 loops yolov3 1-bacth in SDK', 'Run 50 loops yolov3 4-bacth in SDK', 'Run 50 loops yolov3 16-bacth in SDK',
+                   'Run 50 loops yolov3 1080P 1-bacth in SDK','Run 50 loops yolov3 1080P 4-bacth in SDK','Run 50 loops yolov3 1080P 16-bacth in SDK',
+
+                   'Run 100 loops yolov2 1-batch in SDK', 'Run 100 loops yolov2 4-batch in SDK', 'Run 100 loops yolov2 16-batch in SDK',
+                   'Run 100 loops yolov2 1080P 1-batch in SDK','Run 100 loops yolov2 1080P 4-batch in SDK',
+
+                   'Run 50 loops mtcnn in SDK']
+
+    while line:
+        line_str = "".join(line)
+        if keyword_index<len(filter_list):
+            flag_keyword = re.search(filter_list[keyword_index], line_str)
+        elif keyword_index==len(filter_list):
+            keyword_index=len(filter_list)-1
+            flag_keyword = re.search(filter_list[keyword_index], line_str)    
+
+        if flag_keyword:
+            check_flag = [False] * len(filter_list)
+            check_flag[keyword_index] = True
+            check = check_flag[keyword_index]
+            keyword_index+=1
+
+
+        if flag_keyword or check:
+            if flag_keyword:
+                print("Processing %s" % filter_list[keyword_index-1])
+            re_result = re.search(r'(Power of core is :)(\d+.\d{6})', line)
+            if re_result:
+                global power_core
+                power_core=re_result.group(2)
+
+            re_result = re.search(r'(Power of vddq is :)(\d+.\d{6})', line)
+            if re_result:
+                global power_vddq
+                power_vddq=re_result.group(2)
+
+            re_result = re.search(r'(Power of vdd ddr is :)(\d+.\d{6})', line)
+            if re_result:
+                global power_vddr
+                power_vddr=re_result.group(2)
+                power_sum=float(power_core)+float(power_vddq)+float(power_vddr)
+                if float(power_core)*float(power_vddq)*float(power_vddr):
+                    Write_to_txt(filter_list[keyword_index-1],str(power_sum))
+                    # print(power_sum)
+                    power_core,power_vddq,power_vddr=0,0,0
+        line = f.readline()
+    f.close()
