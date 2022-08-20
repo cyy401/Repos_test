@@ -89,6 +89,7 @@ if __name__ == "__main__":
         line = f.readline()
         # print(line)
     f.close()
+<<<<<<< HEAD
     
     outputExcel = "result.xls"
     fileName = "201911100011_超频升压_log.txt"
@@ -150,3 +151,8 @@ if __name__ == "__main__":
                     power_core,power_vddq,power_vddr=0,0,0
         line = f.readline()
     f.close()
+=======
+
+
+# git check version 1st
+>>>>>>> feature
