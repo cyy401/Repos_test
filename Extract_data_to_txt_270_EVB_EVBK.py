@@ -91,15 +91,6 @@ if __name__ == "__main__":
                 global power_vddq
                 power_vddq=re_result.group(2)
 
-            re_result = re.search(r'(Power of vdd ddr is :)(\d+.\d{6})', line)
-            if re_result:
-                global power_vddr
-                power_vddr=re_result.group(2)
-                power_sum=float(power_core)+float(power_vddq)+float(power_vddr)
-                if float(power_core)*float(power_vddq)*float(power_vddr):
-                    Write_to_txt(filter_list[keyword_index-1],str(power_sum))
-                    # print(power_sum)
-                    power_core,power_vddq,power_vddr=0,0,0
         line = f.readline()
     f.close()
 
